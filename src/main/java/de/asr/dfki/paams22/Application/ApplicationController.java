@@ -6,6 +6,7 @@
 package de.asr.dfki.paams22.Application;
 
 import de.asr.dfki.paams22.Model.Artifacts.Order;
+import de.asr.dfki.paams22.Model.Artifacts.Product;
 import de.asr.dfki.paams22.Model.Container.Container;
 import de.asr.dfki.paams22.Model.RDFObject;
 import de.asr.dfki.paams22.Model.Scenario.Scenario;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -87,11 +89,36 @@ public class ApplicationController {
 
 	try {
 	    order.addRDF(receivedRdf);
-	} catch (Exception e) {
+	} catch (IOException e) {
 	    response.setStatus(500);
-	    return "Something went wrong with processing RDF for order " + orderId;
+	    return "Something went wrong with processing RDF for order " + orderId + ": " + e.getMessage();
 	}
 	response.setStatus(200);
 	return ("Updated");
+    }
+
+    @PostMapping(value = "/products", consumes = "text/turtle")
+    String postProduct(HttpServletRequest request,
+	    HttpServletResponse response,
+	    @RequestBody String receivedRdf) {
+
+	Container productContainer;
+	try {
+	    productContainer = (Container) rootContainer.getObject("products");
+	} catch (Exception e) {
+	    response.setStatus(404);
+	    return "Container object with id products not found.";
+	}
+
+	try {
+	    Product product = new Product(java.util.UUID.randomUUID().toString());
+	    product.addRDF(receivedRdf);
+	    productContainer.addArtifact(product);
+	    response.setStatus(201);
+	    return "Created: " + product.getUri();
+	} catch (IOException e) {
+	    response.setStatus(500);
+	    return "Something went wrong with creating a new product: " + e.getMessage();
+	}
     }
 }
