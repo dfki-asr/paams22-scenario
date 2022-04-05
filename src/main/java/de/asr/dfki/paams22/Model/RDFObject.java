@@ -37,13 +37,14 @@ public abstract class RDFObject {
     @Setter
     protected String uri;
 
-    public RDFObject(String id, String[] classes) {
+    public RDFObject(String id, String namespace, String[] classes) {
 	this.id = id;
 	this.rdfModel = new TreeModel();
 
 	rdfModel.setNamespace("base", "http://localhost:8080/");
 	rdfModel.setNamespace("productkinds", "http://localhost:8080/productkinds/");
 	rdfModel.setNamespace("blueprints", "http://localhost:8080/blueprints/");
+	rdfModel.setNamespace("workstations", "http://localhost:8080/workstations/");
 	rdfModel.setNamespace("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
 	rdfModel.setNamespace("rdfs", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
 	rdfModel.setNamespace("dct", "http://purl.org/dc/terms/");
@@ -57,6 +58,7 @@ public abstract class RDFObject {
 	builder.setNamespace("base", "http://localhost:8080/");
 	builder.setNamespace("productkinds", "http://localhost:8080/productkinds/");
 	builder.setNamespace("blueprints", "http://localhost:8080/blueprints/");
+	builder.setNamespace("workstations", "http://localhost:8080/workstations/");
 	builder.setNamespace("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
 	builder.setNamespace("rdfs", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
 	builder.setNamespace("dct", "http://purl.org/dc/terms/");
@@ -67,8 +69,9 @@ public abstract class RDFObject {
 	builder.setNamespace("stigld", "http://dfki.de/stigld#");
 	builder.setNamespace("ldp", "http://www.w3.org/ns/ldp#");
 
+	uri = namespace + id;
 	for (String c : classes) {
-	    rdfModel.addAll(builder.subject("base:" + getId())
+	    rdfModel.addAll(builder.subject(uri)
 		    .add(RDF.TYPE, c).build());
 	}
     }

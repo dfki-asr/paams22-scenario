@@ -13,7 +13,7 @@ import de.asr.dfki.paams22.Model.RDFObject;
  */
 public abstract class Artifact extends RDFObject {
 
-    public Artifact(String id, String[] classes) {
-	super(id, classes);
+    public Artifact(String id, String namespace, String[] classes) {
+	super(id, namespace, classes);
     }
 }

@@ -12,6 +12,6 @@ package de.asr.dfki.paams22.Model.Artifacts;
 public class Product extends Artifact {
 
     public Product(String id) {
-	super(id, new String[]{"mosaik:Product"});
+	super(id, "products:", new String[]{"mosaik:Product"});
     }
 }

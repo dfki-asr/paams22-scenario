@@ -22,7 +22,7 @@ public class Container<T extends RDFObject> extends RDFObject {
     protected Set<T> contains = new HashSet<>();
 
     public Container(String id, String[] classes) {
-	super(id, classes);
+	super(id, "base:",  classes);
     }
 
     public void addArtifact(T artifact, String artifactNamespace) {

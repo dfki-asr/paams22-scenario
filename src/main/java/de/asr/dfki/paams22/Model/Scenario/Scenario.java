@@ -7,6 +7,7 @@ package de.asr.dfki.paams22.Model.Scenario;
 
 import de.asr.dfki.paams22.Model.Artifacts.Blueprint;
 import de.asr.dfki.paams22.Model.Artifacts.ProductKind;
+import de.asr.dfki.paams22.Model.Artifacts.Workstation;
 import de.asr.dfki.paams22.Model.Container.Container;
 
 /**
@@ -24,10 +25,18 @@ public class Scenario {
     private static ProductKind ram;
     private static ProductKind ifx;
 
+    // Workstations
+    private static Workstation cpuDispenser;
+    private static Workstation ramDispenser;
+    private static Workstation ifxDispenser;
+    private static Workstation mainboardAssembly;
+    private static Workstation iotboardAssembly;
+
     public static Container build() {
 	rootContainer = new Container("base", new String[]{"ldp:BasicContainer", "mosaik:RootContainer"});
 	addProductKinds();
 	addBlueprints();
+	addWorkstations();
 	return rootContainer;
     }
 
@@ -47,12 +56,29 @@ public class Scenario {
     }
 
     public static void addBlueprints() {
-	Container blueprintsContainer = new Container("blueprints", new String[]{"ldp:BasicContainer", "mosaik:ProductKinds"});
+	Container blueprintsContainer = new Container("blueprints", new String[]{"ldp:BasicContainer", "mosaik:Blueprints"});
 	blueprintsContainer.addArtifact(new Blueprint("dispenseCpu", cpu, new ProductKind[]{}));
 	blueprintsContainer.addArtifact(new Blueprint("dispenceRam", ram, new ProductKind[]{}));
 	blueprintsContainer.addArtifact(new Blueprint("dispenseInterface", ifx, new ProductKind[]{}));
 	blueprintsContainer.addArtifact(new Blueprint("assembleMainboard", mainboard, new ProductKind[]{cpu, ram}));
 	blueprintsContainer.addArtifact(new Blueprint("assembleIOTBoard", iotboard, new ProductKind[]{mainboard, ifx}));
 	rootContainer.addArtifact(blueprintsContainer);
+    }
+
+    public static void addWorkstations() {
+	cpuDispenser = new Workstation("cpudispenser", cpu);
+	ramDispenser = new Workstation("ramdispenser", ram);
+	ifxDispenser = new Workstation("ifxdispenser", ifx);
+	mainboardAssembly = new Workstation("mainboardassembly", mainboard);
+	iotboardAssembly = new Workstation("iotboardassembly", iotboard);
+
+	Container workstationContainer = new Container("workstations", new String[]{"ldp:BasicContainer", "mosaik:Workstations"});
+	workstationContainer.addArtifact(cpuDispenser);
+	workstationContainer.addArtifact(ramDispenser);
+	workstationContainer.addArtifact(ifxDispenser);
+	workstationContainer.addArtifact(mainboardAssembly);
+	workstationContainer.addArtifact(iotboardAssembly);
+
+	rootContainer.addArtifact(workstationContainer);
     }
 }

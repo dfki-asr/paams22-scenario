@@ -15,11 +15,11 @@ public class Blueprint extends Artifact {
     private final ProductKind[] supply;
 
     public Blueprint(String id, ProductKind about, ProductKind[] supply) {
-	super(id, new String[]{"mosaik:Blueprint"});
+	super(id, "blueprints:", new String[]{"mosaik:Blueprint"});
 
-	uri = "blueprints:" + id;
 	this.about = about;
 	this.supply = supply;
+
 	rdfModel.addAll(builder.subject(getUri())
 		.add("schema:about", about.getUri())
 		.build());
