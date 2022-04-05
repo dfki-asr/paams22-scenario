@@ -6,6 +6,7 @@
 package de.asr.dfki.paams22.Model.Scenario;
 
 import de.asr.dfki.paams22.Model.Artifacts.Blueprint;
+import de.asr.dfki.paams22.Model.Artifacts.Order;
 import de.asr.dfki.paams22.Model.Artifacts.ProductKind;
 import de.asr.dfki.paams22.Model.Artifacts.Workstation;
 import de.asr.dfki.paams22.Model.Container.Container;
@@ -34,10 +35,17 @@ public class Scenario {
 
     public static Container build() {
 	rootContainer = new Container("base", new String[]{"ldp:BasicContainer", "mosaik:RootContainer"});
+	addProductsContainer();
 	addProductKinds();
 	addBlueprints();
 	addWorkstations();
+	addOrders();
 	return rootContainer;
+    }
+
+    public static void addProductsContainer() {
+	Container productsContainer = new Container("products", new String[]{"ldp:BasicContainer", "mosaik:Products"});
+	rootContainer.addArtifact(productsContainer);
     }
 
     public static void addProductKinds() {
@@ -80,5 +88,11 @@ public class Scenario {
 	workstationContainer.addArtifact(iotboardAssembly);
 
 	rootContainer.addArtifact(workstationContainer);
+    }
+
+    public static void addOrders() {
+	Container orderContainer = new Container("orders", new String[]{"ldp:BasicContainer", "mosaik:Orders"});
+	orderContainer.addArtifact(new Order("order_1", iotboard));
+	rootContainer.addArtifact(orderContainer);
     }
 }

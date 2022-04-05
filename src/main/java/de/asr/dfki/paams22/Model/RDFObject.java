@@ -45,6 +45,8 @@ public abstract class RDFObject {
 	rdfModel.setNamespace("productkinds", "http://localhost:8080/productkinds/");
 	rdfModel.setNamespace("blueprints", "http://localhost:8080/blueprints/");
 	rdfModel.setNamespace("workstations", "http://localhost:8080/workstations/");
+	rdfModel.setNamespace("products", "http://localhost:8080/products/");
+	rdfModel.setNamespace("orders", "http://localhost:8080/orders/");
 	rdfModel.setNamespace("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
 	rdfModel.setNamespace("rdfs", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
 	rdfModel.setNamespace("dct", "http://purl.org/dc/terms/");
@@ -59,6 +61,8 @@ public abstract class RDFObject {
 	builder.setNamespace("productkinds", "http://localhost:8080/productkinds/");
 	builder.setNamespace("blueprints", "http://localhost:8080/blueprints/");
 	builder.setNamespace("workstations", "http://localhost:8080/workstations/");
+	builder.setNamespace("products", "http://localhost:8080/products/");
+	builder.setNamespace("orders", "http://localhost:8080/orders/");
 	builder.setNamespace("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
 	builder.setNamespace("rdfs", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
 	builder.setNamespace("dct", "http://purl.org/dc/terms/");
