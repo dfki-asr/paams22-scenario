@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -68,7 +70,7 @@ public class ApplicationController {
 	}
     }
 
-    @PostMapping(value = "orders/{orderId}", consumes = "text/turtle")
+    @RequestMapping(value = "orders/{orderId}", consumes = "text/turtle", method = RequestMethod.PUT)
     String updateOrder(HttpServletRequest request,
 	    HttpServletResponse response,
 	    @PathVariable("orderId") final String orderId,
