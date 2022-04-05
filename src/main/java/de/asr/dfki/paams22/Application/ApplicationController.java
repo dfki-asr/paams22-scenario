@@ -7,6 +7,7 @@ package de.asr.dfki.paams22.Application;
 
 import de.asr.dfki.paams22.Model.Artifacts.Order;
 import de.asr.dfki.paams22.Model.Artifacts.Product;
+import de.asr.dfki.paams22.Model.Artifacts.Workstation;
 import de.asr.dfki.paams22.Model.Container.Container;
 import de.asr.dfki.paams22.Model.RDFObject;
 import de.asr.dfki.paams22.Model.Scenario.Scenario;
@@ -119,6 +120,34 @@ public class ApplicationController {
 	} catch (IOException e) {
 	    response.setStatus(500);
 	    return "Something went wrong with creating a new product: " + e.getMessage();
+	}
+    }
+
+    @GetMapping("/workstations/{workstationId}/produce")
+    String produce(HttpServletResponse response,
+	    @PathVariable("workstationId") final String workstationId) {
+
+	Workstation workstation;
+	Container wsContainer;
+	try {
+	    wsContainer = (Container) rootContainer.getObject("workstations");
+	    workstation = (Workstation) wsContainer.getObject(workstationId);
+	    if (workstation == null) {
+		throw new Exception();
+	    }
+	} catch (Exception e) {
+	    response.setStatus(404);
+	    return "Container object with id workstations not found , or workstation with id " + workstationId + " not found in container.";
+	}
+	try {
+	    Container productContainer;
+	    productContainer = (Container) rootContainer.getObject("products");
+	    Product producedProduct = new Product(java.util.UUID.randomUUID().toString(), workstation.getYields());
+	    productContainer.addArtifact(producedProduct);
+	    response.setStatus(200);
+	    return "Ok";
+	} catch (Exception e) {
+	    return "Something went wrong with producing a product on workstation " + workstation.getId() + ": " + e.getMessage();
 	}
     }
 }

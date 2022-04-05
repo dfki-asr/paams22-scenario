@@ -11,7 +11,17 @@ package de.asr.dfki.paams22.Model.Artifacts;
  */
 public class Product extends Artifact {
 
+    private ProductKind ofProductkind;
+
     public Product(String id) {
 	super(id, "products:", new String[]{"mosaik:Product"});
+    }
+
+    public Product(String id, ProductKind ofProductKind) {
+	super(id, "products:", new String[]{"mosaik:Product"});
+	this.ofProductkind = ofProductkind;
+	rdfModel.addAll(builder.subject(getUri())
+		.add("mosaik:productKind", ofProductKind.getUri())
+		.build());
     }
 }
