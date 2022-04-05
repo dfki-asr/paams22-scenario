@@ -5,7 +5,9 @@
  */
 package de.asr.dfki.paams22.Model;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import lombok.Getter;
 import lombok.Setter;
 import org.eclipse.rdf4j.model.Model;
@@ -84,6 +86,10 @@ public abstract class RDFObject {
 	ByteArrayOutputStream output = new ByteArrayOutputStream();
 	Rio.write(rdfModel, output, RDFFormat.TURTLE);
 	return output.toString();
+    }
+
+    public void addRDF(String rdfString) throws IOException {
+	rdfModel.addAll(Rio.parse(new ByteArrayInputStream(rdfString.getBytes()), RDFFormat.TURTLE));
     }
 
 }

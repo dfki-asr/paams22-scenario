@@ -5,13 +5,17 @@
  */
 package de.asr.dfki.paams22.Application;
 
+import de.asr.dfki.paams22.Model.Artifacts.Order;
 import de.asr.dfki.paams22.Model.Container.Container;
 import de.asr.dfki.paams22.Model.RDFObject;
 import de.asr.dfki.paams22.Model.Scenario.Scenario;
+import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -62,5 +66,31 @@ public class ApplicationController {
 	    response.setStatus(404);
 	    return "Container object with id " + containerId + " not found , or Object with id " + objectId + " not found in container.";
 	}
+    }
+
+    @PostMapping(value = "orders/{orderId}", consumes = "text/turtle")
+    String updateOrder(HttpServletRequest request,
+	    HttpServletResponse response,
+	    @PathVariable("orderId") final String orderId,
+	    @RequestBody String receivedRdf) throws IOException {
+
+	Container orderContainer;
+	Order order;
+	try {
+	    orderContainer = (Container) rootContainer.getObject("orders");
+	    order = (Order) orderContainer.getObject(orderId);
+	} catch (Exception e) {
+	    response.setStatus(404);
+	    return "Container object with id orders not found , or order with id " + orderId + " not found in container.";
+	}
+
+	try {
+	    order.addRDF(receivedRdf);
+	} catch (Exception e) {
+	    response.setStatus(500);
+	    return "Something went wrong with processing RDF for order " + orderId;
+	}
+	response.setStatus(200);
+	return ("Updated");
     }
 }
