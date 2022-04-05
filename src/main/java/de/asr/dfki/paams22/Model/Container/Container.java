@@ -25,10 +25,15 @@ public class Container<T extends RDFObject> extends RDFObject {
 	super(id, classes);
     }
 
-    public void addArtifact(T artifact) {
+    public void addArtifact(T artifact, String artifactNamespace) {
+	artifact.setUri(artifactNamespace + ":" + artifact.getId());
 	rdfModel.addAll(builder.subject("base:" + getId())
-		.add("ldp:contains", "base:" + artifact.getId()).build());
+		.add("ldp:contains", artifact.getUri()).build());
 	contains.add(artifact);
+    }
+
+    public void addArtifact(T artifact) {
+	addArtifact(artifact, id);
     }
 
     public RDFObject getRDFOfObject(String id) {

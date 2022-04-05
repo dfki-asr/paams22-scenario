@@ -7,6 +7,7 @@ package de.asr.dfki.paams22.Model;
 
 import java.io.ByteArrayOutputStream;
 import lombok.Getter;
+import lombok.Setter;
 import org.eclipse.rdf4j.model.Model;
 import org.eclipse.rdf4j.model.Triple;
 import org.eclipse.rdf4j.model.impl.SimpleTriple;
@@ -32,11 +33,17 @@ public abstract class RDFObject {
     @Getter
     protected String id;
 
+    @Getter
+    @Setter
+    protected String uri;
+
     public RDFObject(String id, String[] classes) {
 	this.id = id;
 	this.rdfModel = new TreeModel();
 
 	rdfModel.setNamespace("base", "http://localhost:8080/");
+	rdfModel.setNamespace("productkinds", "http://localhost:8080/productkinds/");
+	rdfModel.setNamespace("blueprints", "http://localhost:8080/blueprints/");
 	rdfModel.setNamespace("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
 	rdfModel.setNamespace("rdfs", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
 	rdfModel.setNamespace("dct", "http://purl.org/dc/terms/");
@@ -46,8 +53,10 @@ public abstract class RDFObject {
 	rdfModel.setNamespace("mosaik", "http://dfki.de/mosaik#");
 	rdfModel.setNamespace("stigld", "http://dfki.de/stigld#");
 	rdfModel.setNamespace("ldp", "http://www.w3.org/ns/ldp#");
-	
+
 	builder.setNamespace("base", "http://localhost:8080/");
+	builder.setNamespace("productkinds", "http://localhost:8080/productkinds/");
+	builder.setNamespace("blueprints", "http://localhost:8080/blueprints/");
 	builder.setNamespace("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
 	builder.setNamespace("rdfs", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
 	builder.setNamespace("dct", "http://purl.org/dc/terms/");

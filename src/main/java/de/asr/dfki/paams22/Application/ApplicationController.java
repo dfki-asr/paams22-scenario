@@ -60,7 +60,7 @@ public class ApplicationController {
 	    return object.getRDF();
 	} catch (Exception e) {
 	    response.setStatus(404);
-	    return "Container object with id " + containerId + " not found .";
+	    return "Container object with id " + containerId + " not found , or Object with id " + objectId + " not found in container.";
 	}
     }
 }
