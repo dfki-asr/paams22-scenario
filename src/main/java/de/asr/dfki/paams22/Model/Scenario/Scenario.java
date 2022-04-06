@@ -44,12 +44,12 @@ public class Scenario {
     }
 
     public static void addProductsContainer() {
-	Container productsContainer = new Container("products", new String[]{"ldp:BasicContainer", "mosaik:Products"});
+	Container productsContainer = new Container("products", new String[]{"ldp:BasicContainer", "mosaik:ProductsContainer"});
 	rootContainer.addArtifact(productsContainer);
     }
 
     public static void addProductKinds() {
-	Container productKindsContainer = new Container("productkinds", new String[]{"ldp:BasicContainer", "mosaik:ProductKinds"});
+	Container productKindsContainer = new Container("productkinds", new String[]{"ldp:BasicContainer", "mosaik:ProductKindsContainer"});
 	mainboard = new ProductKind("mainboard");
 	iotboard = new ProductKind("iotboard");
 	cpu = new ProductKind("cpu");
@@ -64,9 +64,9 @@ public class Scenario {
     }
 
     public static void addBlueprints() {
-	Container blueprintsContainer = new Container("blueprints", new String[]{"ldp:BasicContainer", "mosaik:Blueprints"});
+	Container blueprintsContainer = new Container("blueprints", new String[]{"ldp:BasicContainer", "mosaik:BlueprintsContainer"});
 	blueprintsContainer.addArtifact(new Blueprint("dispenseCpu", cpu, new ProductKind[]{}));
-	blueprintsContainer.addArtifact(new Blueprint("dispenceRam", ram, new ProductKind[]{}));
+	blueprintsContainer.addArtifact(new Blueprint("dispenseRam", ram, new ProductKind[]{}));
 	blueprintsContainer.addArtifact(new Blueprint("dispenseInterface", ifx, new ProductKind[]{}));
 	blueprintsContainer.addArtifact(new Blueprint("assembleMainboard", mainboard, new ProductKind[]{cpu, ram}));
 	blueprintsContainer.addArtifact(new Blueprint("assembleIOTBoard", iotboard, new ProductKind[]{mainboard, ifx}));
@@ -80,7 +80,7 @@ public class Scenario {
 	mainboardAssembly = new Workstation("mainboardassembly", mainboard);
 	iotboardAssembly = new Workstation("iotboardassembly", iotboard);
 
-	Container workstationContainer = new Container("workstations", new String[]{"ldp:BasicContainer", "mosaik:Workstations"});
+	Container workstationContainer = new Container("workstations", new String[]{"ldp:BasicContainer", "mosaik:WorkstationsContainer"});
 	workstationContainer.addArtifact(cpuDispenser);
 	workstationContainer.addArtifact(ramDispenser);
 	workstationContainer.addArtifact(ifxDispenser);
@@ -91,7 +91,7 @@ public class Scenario {
     }
 
     public static void addOrders() {
-	Container orderContainer = new Container("orders", new String[]{"ldp:BasicContainer", "mosaik:Orders"});
+	Container orderContainer = new Container("orders", new String[]{"ldp:BasicContainer", "mosaik:OrdersContainer"});
 	orderContainer.addArtifact(new Order("order_1", iotboard));
 	rootContainer.addArtifact(orderContainer);
     }
