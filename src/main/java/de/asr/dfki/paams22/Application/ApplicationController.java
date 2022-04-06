@@ -36,8 +36,8 @@ public class ApplicationController {
     }
 
     @GetMapping(value = "/", produces = "text/turtle")
-    String getRootContainer() {
-	return rootContainer.getRDF();
+    String getRootContainer(HttpServletRequest request) {
+	return rootContainer.getRDF().replace("http://localhost:8080/", getCalledServer(request));
     }
 
     @GetMapping(value = "{containerId}", produces = "text/turtle")
@@ -48,7 +48,7 @@ public class ApplicationController {
 	try {
 	    response.setStatus(200);
 	    var object = rootContainer.getRDFOfObject(containerId);
-	    return object.getRDF();
+	    return object.getRDF().replace("http://localhost:8080/", getCalledServer(request));
 	} catch (Exception e) {
 	    response.setStatus(404);
 	    return "Container object with id " + containerId + " not found .";
@@ -65,7 +65,8 @@ public class ApplicationController {
 	    response.setStatus(200);
 	    Container container = (Container) rootContainer.getObject(containerId);
 	    RDFObject object = container.getRDFOfObject(objectId);
-	    return object.getRDF();
+
+	    return object.getRDF().replace("http://localhost:8080/", getCalledServer(request));
 	} catch (Exception e) {
 	    response.setStatus(404);
 	    return "Container object with id " + containerId + " not found , or Object with id " + objectId + " not found in container.";
@@ -149,5 +150,10 @@ public class ApplicationController {
 	} catch (Exception e) {
 	    return "Something went wrong with producing a product on workstation " + workstation.getId() + ": " + e.getMessage();
 	}
+    }
+
+    private String getCalledServer(HttpServletRequest request) {
+	String calledServer = "http://" + request.getServerName() + ":" + request.getServerPort() + "/";
+	return calledServer;
     }
 }
