@@ -14,11 +14,11 @@ public class Product extends Artifact {
     private ProductKind ofProductkind;
 
     public Product(String id) {
-	super(id, "products:", new String[]{"mosaik:Product"});
+	super(id, "products:", new String[]{"schema:Product"});
     }
 
     public Product(String id, ProductKind ofProductKind) {
-	super(id, "products:", new String[]{"mosaik:Product"});
+	super(id, "products:", new String[]{"schema:Product"});
 	this.ofProductkind = ofProductkind;
 	rdfModel.addAll(builder.subject(getUri())
 		.add("mosaik:productKind", ofProductKind.getUri())
