@@ -96,7 +96,7 @@ public class ApplicationController {
 	    return "Something went wrong with processing RDF for order " + orderId + ": " + e.getMessage();
 	}
 	response.setStatus(200);
-	return ("Updated");
+	return ("");
     }
 
     @PostMapping(value = "/products", consumes = "text/turtle")
@@ -146,7 +146,8 @@ public class ApplicationController {
 	    Product producedProduct = new Product(java.util.UUID.randomUUID().toString(), workstation.getYields());
 	    productContainer.addArtifact(producedProduct);
 	    response.setStatus(200);
-	    return "Ok";
+	    //return "Ok";
+	    return "";
 	} catch (Exception e) {
 	    return "Something went wrong with producing a product on workstation " + workstation.getId() + ": " + e.getMessage();
 	}
