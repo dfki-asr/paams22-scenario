@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package de.asr.dfki.paams22.Model.Scenario;
+package de.asr.dfki.wiait22.Model.Scenario;
 
-import de.asr.dfki.paams22.Model.Artifacts.Blueprint;
-import de.asr.dfki.paams22.Model.Artifacts.Order;
-import de.asr.dfki.paams22.Model.Artifacts.ProductKind;
-import de.asr.dfki.paams22.Model.Artifacts.Workstation;
-import de.asr.dfki.paams22.Model.Container.Container;
+import de.asr.dfki.wiait22.Model.Artifacts.Blueprint;
+import de.asr.dfki.wiait22.Model.Artifacts.Order;
+import de.asr.dfki.wiait22.Model.Artifacts.ProductKind;
+import de.asr.dfki.wiait22.Model.Artifacts.Workstation;
+import de.asr.dfki.wiait22.Model.Container.Container;
 
 /**
  *

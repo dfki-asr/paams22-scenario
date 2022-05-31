@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package de.asr.dfki.paams22.Application;
+package de.asr.dfki.wiait22.Application;
 
-import de.asr.dfki.paams22.Model.Artifacts.Order;
-import de.asr.dfki.paams22.Model.Artifacts.Product;
-import de.asr.dfki.paams22.Model.Artifacts.Workstation;
-import de.asr.dfki.paams22.Model.Container.Container;
-import de.asr.dfki.paams22.Model.RDFObject;
-import de.asr.dfki.paams22.Model.Scenario.Scenario;
+import de.asr.dfki.wiait22.Model.Artifacts.Order;
+import de.asr.dfki.wiait22.Model.Artifacts.Product;
+import de.asr.dfki.wiait22.Model.Artifacts.Workstation;
+import de.asr.dfki.wiait22.Model.Container.Container;
+import de.asr.dfki.wiait22.Model.RDFObject;
+import de.asr.dfki.wiait22.Model.Scenario.Scenario;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

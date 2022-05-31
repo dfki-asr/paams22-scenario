@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package de.asr.dfki.paams22.Model.Artifacts;
+package de.asr.dfki.wiait22.Model.Artifacts;
 
-import de.asr.dfki.paams22.Model.RDFObject;
+import de.asr.dfki.wiait22.Model.RDFObject;
 
 /**
  *
